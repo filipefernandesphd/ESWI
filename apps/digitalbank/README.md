@@ -15,7 +15,6 @@
   - Clique no botão de `+`
   - Selecione o provider como `Ollama` e selecione `Autodetect` em Model.
 - Acesse o chat, escolha o modo `Chat` do `Continue`, selecione o modelo `qwen2.5-coder:7b (autodetected)` e envie o prompt para testar: `Olá! Você está rodando qual modelo?`
-  - Obs: O modo `Agent` deve ser usado para ler e criar arquivos no projeto.
 
 ## Estrutura do projeto Java
 

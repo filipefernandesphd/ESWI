@@ -6,7 +6,7 @@ Repositório de apoio à disciplina de **INF03082 - ENGENHARIA DE SOFTWARE I** d
 
 ```text
 |-- apps
-|   |-- digitalbank: projeto do banco digital implementado em java
+|   |-- digitalbank: projeto do banco digital implementado em Java
 |
 |-- README.md: visão geral do repositório
 ```
