@@ -1,0 +1,15 @@
+{
+  "name": "meuplano-slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0",
+    "slidev-theme-mint": "^0.1.0",
+    "vue": "^3.5.0"
+  }
+}

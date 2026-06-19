@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engenharia de Software I — IF Sudeste MG</title>
+  <meta name="description" content="Hub do repositório de apoio à disciplina INF03082 — Engenharia de Software I (BSI, IF Sudeste MG — Campus Manhuaçu)." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #0c100e;
+      --surface: #141a16;
+      --surface-2: #1b231d;
+      --border: #283129;
+      --text: #e7ece8;
+      --muted: #93a098;
+      --green: #2a9c41;
+      --green-bright: #3fd25f;
+      --dark-green: #2b593f;
+      --ring: #3fd25f;
+      --radius: 16px;
+      --font-display: "Space Grotesk", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      --font-body: "Inter", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 500px at 85% -10%, rgba(42, 156, 65, 0.18), transparent 60%),
+        radial-gradient(700px 500px at -10% 110%, rgba(43, 89, 63, 0.22), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 4rem;
+    }
+
+    header { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--green-bright);
+      background: rgba(42, 156, 65, 0.1);
+      border: 1px solid rgba(63, 210, 95, 0.25);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1.4rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      line-height: 1.05;
+      margin: 0 0 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      margin: 0;
+    }
+
+    .tree-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+
+    .tree {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .node-group { display: flex; flex-direction: column; gap: 0.7rem; }
+
+    .group-title {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--text);
+      padding-left: 0.2rem;
+    }
+    .group-title::before {
+      content: "├─ ";
+      color: var(--green);
+    }
+
+    .leaf {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.3rem;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .leaf.nested { margin-left: clamp(1rem, 5vw, 2rem); }
+
+    .leaf:hover {
+      transform: translateY(-2px);
+      border-color: rgba(63, 210, 95, 0.5);
+      background: var(--surface-2);
+    }
+
+    .leaf:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .leaf .path {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--green-bright);
+      flex: 0 0 auto;
+    }
+
+    .leaf .desc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
+    }
+    .tag.accent {
+      color: var(--green-bright);
+      border-color: rgba(63, 210, 95, 0.35);
+      background: rgba(42, 156, 65, 0.08);
+    }
+
+    .arrow { color: var(--muted); margin-left: auto; flex: 0 0 auto; }
+    .leaf:hover .arrow { color: var(--green-bright); }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--green-bright); text-decoration: none; }
+    footer a:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .leaf { transition: none; }
+      .leaf:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="eyebrow">INF03082 · Bacharelado em Sistemas de Informação</span>
+      <h1>Engenharia de Software I</h1>
+      <p class="subtitle">IF Sudeste MG — Campus Manhuaçu</p>
+    </header>
+
+    <p class="tree-label">apps/</p>
+
+    <ul class="tree">
+      <li>
+        <a
+          class="leaf"
+          href="https://github.com/__REPO_SLUG__/tree/main/apps/digitalbank"
+        >
+          <span class="path">digitalbank/</span>
+          <span class="desc">Banco digital implementado em Java (terminal)</span>
+          <span class="tags">
+            <span class="tag">Java</span>
+            <span class="tag">terminal</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+
+      <li class="node-group">
+        <span class="group-title">meuplano.ai/</span>
+
+        <a class="leaf nested" href="./meuplano-slides/">
+          <span class="path">› slides</span>
+          <span class="desc">Slides da aula (análise → projeto → código)</span>
+          <span class="tags">
+            <span class="tag accent">Slidev</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a
+          class="leaf nested"
+          href="https://github.com/__REPO_SLUG__/tree/main/apps/meuplano.ai"
+        >
+          <span class="path">› código-fonte</span>
+          <span class="desc">Gerador de planos de aula com IA (Ollama)</span>
+          <span class="tags">
+            <span class="tag">Java</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <footer>
+      Publicado automaticamente via GitHub Actions a cada push na
+      <code>main</code>. Código-fonte em
+      <a href="https://github.com/__REPO_SLUG__">github.com/__REPO_SLUG__</a>.
+    </footer>
+  </main>
+</body>
+</html>
