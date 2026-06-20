@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -58,7 +58,9 @@ jobs:
           if [ -f apps/meuplano.ai/slides/package.json ]; then
             echo "Projeto Slidev encontrado — buildando."
             cd apps/meuplano.ai/slides
-            npm ci
+            # 'npm install' (não 'npm ci'): o tema slidev-theme-mint@0.1.0 é da era
+            # do Slidev 0.x e gera um lockfile que o 'npm ci' estrito rejeita.
+            npm install --no-audit --no-fund
             npx slidev build \
               --base "/${{ github.event.repository.name }}/meuplano-slides/" \
               --out dist

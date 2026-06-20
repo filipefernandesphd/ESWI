@@ -2,3 +2,7 @@ node_modules/
 dist/
 .slidev/
 *.local
+
+# Não versionamos o lockfile: slidev-theme-mint@0.1.0 (era Slidev 0.x) gera um
+# package-lock.json que o 'npm ci' rejeita. O CI usa 'npm install'.
+package-lock.json
