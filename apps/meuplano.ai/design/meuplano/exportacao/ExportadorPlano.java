@@ -1,3 +1,7 @@
+package meuplano.exportacao;
+
+import meuplano.dominio.PlanoDeAula;
+
 /**
  * Contrato de exportação de um plano de aula (pós-condição "exportar em PDF").
  *

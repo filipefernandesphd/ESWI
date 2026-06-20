@@ -1,3 +1,5 @@
+package meuplano.dominio;
+
 /**
  * Entidade de domínio que representa um plano de aula.
  *

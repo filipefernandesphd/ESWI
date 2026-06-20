@@ -109,48 +109,28 @@ layout: default
 
 # Diagrama de sequência — fluxo principal
 
-```mermaid {scale: 0.42}
+```mermaid {scale: 0.5}
 sequenceDiagram
     actor Professor
-    participant Web as Frontend Web
-    participant API as Backend API
-    participant IA as Serviço de IA
+    participant App as MeuPlanoApp
+    participant IA as ServicoIA
 
-    Professor->>Web: Acessa tela inicial pública do sistema
-    Web-->>Professor: Exibe tela inicial pública
+    Professor->>App: descreve o plano (linguagem natural)
+    App->>IA: gerarRascunho(descricao)
+    IA-->>App: PlanoDeAula
+    App->>Professor: exibe o rascunho
 
-    Professor->>Web: Informa, em linguagem natural, o plano desejado
-    Professor->>Web: Submete solicitação para gerar plano de aula
-
-    Web->>API: POST /planos-de-aula/rascunho
-    Note over Web,API: Envia descrição em linguagem natural
-
-    API->>IA: Solicita geração do rascunho estruturado
-    IA-->>API: Retorna rascunho com campos preenchidos
-
-    API-->>Web: 201 Created - Retorna rascunho do plano de aula
-    Web-->>Professor: Exibe formulário com campos preenchidos
-
-    Professor->>Web: Revisa os campos do formulário
-
-    loop Enquanto o professor desejar melhorar o rascunho
-        Professor->>Web: Envia novas instruções para melhorar
-        Web->>API: POST /planos-de-aula/rascunho/melhorar
-        Note over Web,API: Envia rascunho atual + instruções
-        API->>IA: Solicita melhoria do rascunho
-        IA-->>API: Retorna rascunho melhorado
-        API-->>Web: 200 OK - Retorna rascunho melhorado
-        Web-->>Professor: Exibe formulário atualizado
-        Professor->>Web: Revisa os campos do formulário
+    loop enquanto desejar melhorar
+        Professor->>App: novas instruções
+        App->>IA: melhorarRascunho(plano, instrucoes)
+        IA-->>App: PlanoDeAula
+        App->>Professor: exibe o rascunho atualizado
     end
 
-    Professor->>Web: Submete rascunho revisado para gerar versão final
-    Web->>API: POST /planos-de-aula/final
-    Note over Web,API: Envia rascunho revisado
-    API->>IA: Solicita geração da versão final
-    IA-->>API: Retorna plano final em formato de relatório
-    API-->>Web: 201 Created - Retorna plano de aula final
-    Web-->>Professor: Exibe plano de aula em formato de relatório
+    Professor->>App: confirma a versão final
+    App->>IA: gerarVersaoFinal(plano)
+    IA-->>App: PlanoDeAula
+    App->>Professor: exibe o plano como relatório
 ```
 
 ---
@@ -422,6 +402,9 @@ public class PlanoDeAula {
     public void setTema(String tema) { this.tema = tema; }
 }
 ```
+
+> **Javadoc** é o comentário entre `/** ... */` que documenta classes e métodos e
+> de onde a ferramenta `javadoc` gera a documentação do código em HTML.
 
 ---
 layout: default

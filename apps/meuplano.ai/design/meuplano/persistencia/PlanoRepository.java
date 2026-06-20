@@ -1,4 +1,8 @@
+package meuplano.persistencia;
+
 import java.util.List;
+
+import meuplano.dominio.PlanoDeAula;
 
 /**
  * Contrato de persistência de planos de aula (pós-condição "salvar o plano").

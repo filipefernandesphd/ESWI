@@ -3,12 +3,38 @@
 Refatoração **orientada a objetos** do código de [análise](../analysis/). O
 **comportamento do fluxo (UC01) é o mesmo** — o que muda é a estrutura.
 
+## Estrutura em packages
+
+As classes estão organizadas por responsabilidade:
+
+```text
+meuplano/
+├── MeuPlanoApp.java            # ponto de entrada (monta e injeta)
+├── controller/
+│   └── GerarPlanoController.java
+├── dominio/
+│   └── PlanoDeAula.java        # entidade encapsulada
+├── ia/
+│   ├── ServicoIA.java          # interface
+│   ├── ServicoIABase.java      # classe abstrata (Template Method)
+│   ├── ServicoIASimulado.java  # implementação
+│   └── ServicoIAOpenRouter.java
+├── persistencia/
+│   ├── PlanoRepository.java    # interface
+│   └── RepositorioEmMemoria.java
+├── exportacao/
+│   ├── ExportadorPlano.java    # interface
+│   └── ExportadorTexto.java
+└── ui/
+    └── ConsoleUI.java
+```
+
 ## Como compilar e rodar
 
 ```bash
 cd apps/meuplano.ai/design
-javac *.java
-java MeuPlanoApp
+javac $(find meuplano -name '*.java')
+java meuplano.MeuPlanoApp
 ```
 
 ## O que mudou da análise para o design

@@ -1,3 +1,14 @@
+package meuplano;
+
+import meuplano.controller.GerarPlanoController;
+import meuplano.exportacao.ExportadorPlano;
+import meuplano.exportacao.ExportadorTexto;
+import meuplano.ia.ServicoIA;
+import meuplano.ia.ServicoIASimulado;
+import meuplano.persistencia.PlanoRepository;
+import meuplano.persistencia.RepositorioEmMemoria;
+import meuplano.ui.ConsoleUI;
+
 /**
  * Ponto de entrada do MeuPlano.AI — versão de DESIGN.
  *

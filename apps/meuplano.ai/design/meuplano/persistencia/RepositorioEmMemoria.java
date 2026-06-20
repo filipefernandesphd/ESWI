@@ -1,5 +1,9 @@
+package meuplano.persistencia;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import meuplano.dominio.PlanoDeAula;
 
 /**
  * Implementação de {@link PlanoRepository} que guarda os planos em memória.

@@ -1,3 +1,7 @@
+package meuplano.ia;
+
+import meuplano.dominio.PlanoDeAula;
+
 /**
  * Base abstrata para serviços de IA.
  *

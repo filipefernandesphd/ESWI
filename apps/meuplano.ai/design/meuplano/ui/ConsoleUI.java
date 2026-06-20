@@ -1,3 +1,5 @@
+package meuplano.ui;
+
 import java.util.Scanner;
 
 /**

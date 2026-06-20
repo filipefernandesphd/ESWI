@@ -1,3 +1,11 @@
+package meuplano.controller;
+
+import meuplano.dominio.PlanoDeAula;
+import meuplano.exportacao.ExportadorPlano;
+import meuplano.ia.ServicoIA;
+import meuplano.persistencia.PlanoRepository;
+import meuplano.ui.ConsoleUI;
+
 /**
  * Orquestra o caso de uso UC01 — Gerar Plano de Aula.
  *

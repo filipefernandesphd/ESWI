@@ -1,3 +1,5 @@
+package meuplano.ia;
+
 /**
  * Implementação que <i>representaria</i> uma IA real via OpenRouter.
  *

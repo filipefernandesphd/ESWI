@@ -1,3 +1,7 @@
+package meuplano.ia;
+
+import meuplano.dominio.PlanoDeAula;
+
 /**
  * Contrato de um serviço de IA capaz de produzir planos de aula.
  *

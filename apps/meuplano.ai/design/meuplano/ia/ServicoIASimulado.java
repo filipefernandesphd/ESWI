@@ -1,3 +1,5 @@
+package meuplano.ia;
+
 /**
  * Implementação de IA <b>simulada</b> (offline).
  *

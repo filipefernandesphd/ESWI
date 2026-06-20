@@ -1,3 +1,7 @@
+package meuplano.exportacao;
+
+import meuplano.dominio.PlanoDeAula;
+
 /**
  * Implementação de {@link ExportadorPlano} que exporta o plano como texto.
  *
