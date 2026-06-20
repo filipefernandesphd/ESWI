@@ -1,124 +1,517 @@
 ---
 theme: mint
-title: Engenharia de Software I
+title: Engenharia de Software I — MeuPlano.AI
 info: |
-  Template de slides da disciplina INF03082 — Engenharia de Software I.
-  Tema Mint recolorido para o verde IF; dados vindos do .env.
-class: text-center
+  MeuPlano.AI — da análise ao design orientado a objetos.
+  INF03082 · Engenharia de Software I · IF Sudeste MG.
 transition: slide-left
 mdc: true
 layout: cover
 ---
 
 <!--
-Capa sobrescrita: todo o conteúdo (curso, disciplina, professor, foto, logo)
-vem das variáveis de ambiente do .env via o composable useDisciplina().
-Trocar o .env muda a capa sem editar este arquivo nem os componentes.
+SLIDE 1 — CAPA
+O layout "cover" monta tudo a partir do .env (composable useDisciplina).
 -->
-
----
-layout: module
----
-
-# Módulo 1 — Introdução
-
-Divisor de seção · equivalente ao `moduleframe` do Beamer
 
 ---
 layout: default
 ---
 
-# Sobre este template
+# O que é o MeuPlano.AI?
 
-Base de slides da disciplina, montada sobre o tema **Mint** e recolorida para o
-verde institucional do IF.
+Um aplicativo que ajuda o **professor a montar planos de aula** com o apoio de IA.
 
-- **Capa, faixas e divisor** usam a paleta IF (`#2A9C41` → `#2B593F`)
-- **Dados da disciplina** vêm do `.env` (prefixo `VITE_`)
-- **Rodapé fixo** com `professor · disciplina · código` em todos os slides de conteúdo
-- **Imagens** usam `BASE_URL` — não quebram no subcaminho do GitHub Pages
+- Você descreve o que quer **em linguagem natural**
+- A IA devolve um **rascunho estruturado** (objetivos, conteúdos, metodologia…)
+- Você **revisa, pede ajustes** e gera a **versão final**
 
-> Edite `.env` para adaptar a outra disciplina; os componentes não mudam.
+> Nesta aula ele é o pretexto para uma lição maior: **como um código evolui da
+> análise para o design orientado a objetos.**
 
 ---
 layout: image-right
 image: ./demo.svg
 ---
 
-# Imagem ao lado
+# A dor
 
-O layout `image-right` já vem pronto do tema Mint — basta informar `image:` no
-frontmatter do slide.
+> "Toda semana eu **perco horas** montando planos de aula.
 
-- `image-left` / `image-right` para conteúdo + ilustração
-- `imageClass` ajusta o enquadramento da imagem
-- Ótimo para diagramas UML de análise e projeto
+> Começo do zero, copio de planos antigos, nunca lembro o formato que a
+> coordenação pediu…
+
+> Queria só **descrever a aula** e receber um rascunho pronto pra ajustar."
+
+<br>
+
+— um professor, qualquer professor
+
+---
+layout: module
+---
+
+# UC01 — Gerar Plano de Aula
+
+O caso de uso que vamos implementar
 
 ---
 layout: default
 ---
 
-# Bloco de código
+# UC01 — Ator e condições
 
-Exemplo em Java — o eixo da disciplina é a evolução **análise → projeto → código**:
+**Ator principal:** Professor
+
+**Pré-condições**
+- O sistema deve estar disponível.
+- A integração com o serviço de IA deve estar configurada.
+
+**Pós-condições**
+- O professor obtém um plano de aula.
+- O professor **salva** o plano em sua conta.
+- O professor **exporta** o plano em PDF.
+
+---
+layout: default
+---
+
+# UC01 — Fluxo principal
+
+1. O professor acessa a tela inicial pública do sistema.
+2. Informa, **em linguagem natural**, o plano que deseja gerar.
+3. Submete a requisição para gerar o plano.
+4. O sistema exibe um **formulário com os campos preenchidos** automaticamente.
+5. O professor **revisa** os campos.
+6. Submete a requisição para gerar a **versão final**.
+7. O sistema exibe o plano em **formato de relatório** — e o caso de uso termina.
+
+---
+layout: default
+---
+
+# UC01 — Fluxos alternativos
+
+- **3.1** — Não autenticado → o app pede autenticação, executa o passo 3 e
+  retorna ao passo 4.
+- **5.1** — O professor **edita os campos manualmente** e segue para o passo 6.
+- **5.2** — O professor **envia outras instruções** para a IA e retorna ao passo 5.
+- **7.1** — O professor **salva** o plano e o caso de uso termina.
+- **7.2** — O professor **exporta** o plano como PDF e o caso de uso termina.
+
+<br>
+
+> O laço **5.2** (melhorar com novas instruções) é o coração da interação.
+
+---
+layout: default
+---
+
+# Diagrama de sequência — fluxo principal
+
+```mermaid {scale: 0.42}
+sequenceDiagram
+    actor Professor
+    participant Web as Frontend Web
+    participant API as Backend API
+    participant IA as Serviço de IA
+
+    Professor->>Web: Acessa tela inicial pública do sistema
+    Web-->>Professor: Exibe tela inicial pública
+
+    Professor->>Web: Informa, em linguagem natural, o plano desejado
+    Professor->>Web: Submete solicitação para gerar plano de aula
+
+    Web->>API: POST /planos-de-aula/rascunho
+    Note over Web,API: Envia descrição em linguagem natural
+
+    API->>IA: Solicita geração do rascunho estruturado
+    IA-->>API: Retorna rascunho com campos preenchidos
+
+    API-->>Web: 201 Created - Retorna rascunho do plano de aula
+    Web-->>Professor: Exibe formulário com campos preenchidos
+
+    Professor->>Web: Revisa os campos do formulário
+
+    loop Enquanto o professor desejar melhorar o rascunho
+        Professor->>Web: Envia novas instruções para melhorar
+        Web->>API: POST /planos-de-aula/rascunho/melhorar
+        Note over Web,API: Envia rascunho atual + instruções
+        API->>IA: Solicita melhoria do rascunho
+        IA-->>API: Retorna rascunho melhorado
+        API-->>Web: 200 OK - Retorna rascunho melhorado
+        Web-->>Professor: Exibe formulário atualizado
+        Professor->>Web: Revisa os campos do formulário
+    end
+
+    Professor->>Web: Submete rascunho revisado para gerar versão final
+    Web->>API: POST /planos-de-aula/final
+    Note over Web,API: Envia rascunho revisado
+    API->>IA: Solicita geração da versão final
+    IA-->>API: Retorna plano final em formato de relatório
+    API-->>Web: 201 Created - Retorna plano de aula final
+    Web-->>Professor: Exibe plano de aula em formato de relatório
+```
+
+---
+layout: default
+---
+
+# Do texto às classes
+
+Quais **substantivos** do domínio viram classe?
+
+| Substantivo | Vira… |
+|---|---|
+| **Plano de aula** | ✅ classe `PlanoDeAula` (entidade) |
+| **Serviço de IA** | ✅ classe `ServicoIA` (gera/melhora/finaliza) |
+| Professor | 👤 ator (fora do recorte de código por enquanto) |
+| Tema, nível, objetivos… | 🔤 **atributos** de `PlanoDeAula` |
+| Formulário, tela, relatório | 🖥️ interface com o usuário (UI) |
+
+> Na **análise** ficamos com **duas classes** e a aplicação. Simples de propósito.
+
+---
+layout: default
+---
+
+# Diagrama de classes — Análise
+
+```mermaid {scale: 0.6}
+classDiagram
+    class MeuPlanoApp {
+        +main(args) void
+        +executarFluxo() void
+    }
+    class PlanoDeAula {
+        +String tema
+        +String nivel
+        +String objetivos
+        +String conteudos
+        +String metodologia
+        +String avaliacao
+        +String duracao
+        +comoRelatorio() String
+    }
+    class ServicoIA {
+        +gerarRascunho(descricao) PlanoDeAula
+        +melhorarRascunho(plano, instrucoes) PlanoDeAula
+        +gerarVersaoFinal(plano) PlanoDeAula
+    }
+    MeuPlanoApp --> ServicoIA : usa
+    MeuPlanoApp --> PlanoDeAula : manipula
+    ServicoIA --> PlanoDeAula : produz
+```
+
+Sem interface, sem herança, sem polimorfismo. **Só o domínio funcionando.**
+
+---
+layout: module
+---
+
+# Fase 1 — Análise
+
+Do domínio ao código
+
+---
+layout: default
+---
+
+# Passo 1 — A entidade `PlanoDeAula`
+
+O domínio + um método que sabe se imprimir:
 
 ```java
 public class PlanoDeAula {
-    private final String titulo;
-    private final List<String> objetivos;
+    public String tema;
+    public String nivel;
+    public String objetivos;
+    // ... conteudos, metodologia, avaliacao, duracao
 
-    public PlanoDeAula(String titulo, List<String> objetivos) {
-        this.titulo = titulo;
-        this.objetivos = objetivos;
-    }
-
-    public String resumo() {
-        return titulo + " (" + objetivos.size() + " objetivos)";
+    public String comoRelatorio() {
+        return "Tema: " + tema + "\n"
+             + "Objetivos: " + objetivos + "\n"
+             + "Metodologia: " + metodologia + "\n";
+        // (formatação completa no arquivo)
     }
 }
 ```
 
----
-layout: subsection
-section: Módulo 1 — Introdução
-subsection: 1.1 — Equivalências com o Beamer
----
-
-Layout **opcional** `subsection`, para paridade com o `subsectionframe` do Beamer.
-
----
-layout: squaredpaper
-title: Rascunho (papel quadriculado)
----
-
-Layout **opcional** `squaredpaper` — fundo quadriculado via CSS, para esboços e
-diagramas à mão livre.
-
-- Útil para rascunhar modelos antes de formalizar em UML
-- Equivalente ao `squaredpaper` do Beamer
+> Campos **públicos** de propósito: clareza sobre design nesta fase.
 
 ---
 layout: default
 ---
 
-# Mapeamento Beamer → Slidev
+# Passo 2 — A IA simulada `ServicoIA`
 
-| Beamer | Template (Mint) |
+Uma **classe simples** (não interface). A IA é **simulada** por template:
+
+```java
+public class ServicoIA {
+    public PlanoDeAula gerarRascunho(String descricao) {
+        PlanoDeAula plano = new PlanoDeAula();
+        plano.tema = descricao;
+        plano.objetivos = "Compreender os conceitos de \"" + descricao + "\".";
+        plano.metodologia = "Aula expositiva dialogada com exercícios.";
+        return plano;
+    }
+    // melhorarRascunho(plano, instrucoes) e gerarVersaoFinal(plano)
+}
+```
+
+> Sem rede, sem Ollama: o foco é o **fluxo do domínio**, não o modelo real.
+
+---
+layout: default
+---
+
+# Passo 3 — O fluxo no terminal `MeuPlanoApp`
+
+Tudo junto: I/O, orquestração e uso da IA — **misturados** de propósito:
+
+```java
+public void executarFluxo() {
+    Scanner entrada = new Scanner(System.in);
+    ServicoIA ia = new ServicoIA();
+
+    String descricao = entrada.nextLine();
+    PlanoDeAula plano = ia.gerarRascunho(descricao);
+    System.out.println(plano.comoRelatorio());
+
+    // laço de melhoria (fluxo 5.2) ...
+    plano = ia.gerarVersaoFinal(plano);
+    System.out.println(plano.comoRelatorio());
+}
+```
+
+---
+layout: default
+---
+
+# Rodando no terminal
+
+```text {*}{maxHeight:'380px'}
+==================================================
+  MeuPlano.AI — Gerador de Planos de Aula
+==================================================
+Descreva o plano de aula que deseja gerar:
+> Algoritmos de ordenação
+
+--- Rascunho gerado (revise os campos) ---
+Tema.........: Algoritmos de ordenação
+Objetivos....: Compreender os conceitos centrais de "Algoritmos de ordenação".
+Metodologia..: Aula expositiva dialogada com exercícios práticos.
+
+Deseja enviar instruções para melhorar? (s/n)
+> n
+
+>>> VERSÃO FINAL DO PLANO DE AULA <<<
+...
+```
+
+✅ Funciona — **sem** interface, herança ou polimorfismo.
+
+---
+layout: module
+---
+
+# Fase 2 — Design
+
+Refatorando para OO
+
+---
+layout: default
+---
+
+# Por que refatorar?
+
+O código de análise funciona, mas…
+
+- 🧱 **Tudo acoplado** — `MeuPlanoApp` faz I/O, orquestra o fluxo **e** chama a IA.
+- 🔒 **IA fixa** — só existe uma `ServicoIA`; conectar outra IA significa
+  **reescrever** a classe.
+- 🔀 **I/O misturada** — `System.out`/`Scanner` espalhados pela regra de negócio.
+- 📦 **Entidade exposta** — campos públicos, qualquer um altera qualquer coisa.
+
+> O comportamento vai continuar **idêntico**. Muda a **estrutura** — e é aí que
+> mora a lição de OO.
+
+---
+layout: default
+---
+
+# Diagrama de classes — Design
+
+```mermaid {scale: 0.4}
+classDiagram
+    class GerarPlanoController {
+        -ServicoIA ia
+        -PlanoRepository repositorio
+        -ExportadorPlano exportador
+        +gerarRascunho(descricao) PlanoDeAula
+        +finalizar(plano) PlanoDeAula
+    }
+    class PlanoDeAula {
+        -String tema
+        -String nivel
+        +getters()
+        +comoRelatorio() String
+    }
+    class ServicoIA {
+        <<interface>>
+        +gerarRascunho(descricao) PlanoDeAula
+        +melhorarRascunho(plano, instrucoes) PlanoDeAula
+        +gerarVersaoFinal(plano) PlanoDeAula
+    }
+    class ServicoIABase {
+        <<abstract>>
+        #chamarModelo(prompt) String
+    }
+    class ServicoIASimulado
+    class ServicoIAOpenRouter
+    class PlanoRepository {
+        <<interface>>
+        +salvar(plano) void
+        +listar() List
+    }
+    class RepositorioEmMemoria
+    class ExportadorPlano {
+        <<interface>>
+        +exportar(plano) void
+    }
+    class ExportadorTexto
+    class ConsoleUI {
+        +lerLinha(rotulo) String
+        +exibir(texto) void
+    }
+    ServicoIA <|.. ServicoIABase
+    ServicoIABase <|-- ServicoIASimulado
+    ServicoIABase <|-- ServicoIAOpenRouter
+    PlanoRepository <|.. RepositorioEmMemoria
+    ExportadorPlano <|.. ExportadorTexto
+    GerarPlanoController --> ServicoIA
+    GerarPlanoController --> PlanoRepository
+    GerarPlanoController --> ExportadorPlano
+    GerarPlanoController --> PlanoDeAula
+    GerarPlanoController --> ConsoleUI
+```
+
+---
+layout: default
+---
+
+# Passo 1 — Encapsular a entidade
+
+**Antes (análise)** — campos públicos:
+
+```java
+public class PlanoDeAula {
+    public String tema;
+    public String objetivos;
+}
+```
+
+**Depois (design)** — campos privados + getters/setters + Javadoc:
+
+```java
+/** Entidade de domínio que representa um plano de aula. */
+public class PlanoDeAula {
+    private String tema;
+    public String getTema() { return tema; }
+    public void setTema(String tema) { this.tema = tema; }
+}
+```
+
+---
+layout: default
+---
+
+# Passo 2 — Interface + classe abstrata
+
+A IA vira um **contrato** (`interface`) com lógica comum numa **classe abstrata**:
+
+```java
+public interface ServicoIA {
+    PlanoDeAula gerarRascunho(String descricao);
+    PlanoDeAula melhorarRascunho(PlanoDeAula plano, String instrucoes);
+    PlanoDeAula gerarVersaoFinal(PlanoDeAula plano);
+}
+
+public abstract class ServicoIABase implements ServicoIA {
+    // monta o prompt, formata o resultado... (lógica comum)
+    protected abstract String chamarModelo(String prompt); // Template Method
+}
+```
+
+> O passo que **varia** entre provedores é só `chamarModelo`.
+
+---
+layout: default
+---
+
+# Passo 2 — Polimorfismo: várias IAs
+
+Cada provedor é uma **subclasse** que só implementa `chamarModelo`:
+
+```java
+public class ServicoIASimulado extends ServicoIABase {
+    protected String chamarModelo(String prompt) {
+        return "[gerado pela IA Simulada]";
+    }
+}
+public class ServicoIAOpenRouter extends ServicoIABase {
+    protected String chamarModelo(String prompt) {
+        return "[gerado pela IA OpenRouter (simulado)]"; // futuro: HTTP real
+    }
+}
+```
+
+No `main`, **trocar de IA = trocar uma linha**:
+
+```java
+ServicoIA ia = new ServicoIASimulado();   // ou new ServicoIAOpenRouter();
+```
+
+---
+layout: default
+---
+
+# Passo 3 — Separar responsabilidades
+
+Cada classe passa a ter **um motivo para mudar**:
+
+```java
+public class GerarPlanoController {     // ORQUESTRA o UC01
+    private final ServicoIA ia;          // depende de ABSTRAÇÕES
+    private final PlanoRepository repositorio;
+    private final ExportadorPlano exportador;
+    private final ConsoleUI ui;          // ENTRADA/SAÍDA isolada
+    // recebe tudo pelo construtor (injeção de dependência)
+}
+```
+
+- `ConsoleUI` → fala com o terminal
+- `PlanoRepository` / `ExportadorPlano` → **interfaces** (salvar e exportar)
+- o controller **não sabe** qual IA, repositório ou exportador é usado
+
+---
+layout: default
+---
+
+# Síntese da evolução
+
+| O que **era** (análise) | O que **virou** (design) |
 |---|---|
-| título | `cover` (sobrescrito via `.env`) |
-| `moduleframe` | `module` |
-| `subsectionframe` | `subsection` *(opcional)* |
-| `squaredpaper` | `squaredpaper` *(opcional)* |
-| `largeframe` | `default` / `end` |
-| conteúdo + footline + `\logo` | `default` + `RodapeIF` |
-| imagem ao lado | `image-left` / `image-right` |
+| Procedural, tudo no `main` | Responsabilidades **separadas** |
+| `PlanoDeAula` com campos públicos | Entidade **encapsulada** |
+| `ServicoIA` única e fixa | **Interface** + **classe abstrata** (Template Method) |
+| Uma IA possível | Várias IAs por **polimorfismo** |
+| I/O espalhada na regra | `ConsoleUI` isola a interface |
+| Sem persistir/exportar | `PlanoRepository` e `ExportadorPlano` (interfaces) |
 
-**Observações de equivalência**
-
-- **Auto-subseção:** o Beamer insere o divisor sozinho (`\AtBeginSubsection`);
-  no Slidev use o layout `subsection` manualmente.
-- **Navegação de seções no topo** (Madrid): sem equivalente — o Slidev traz a
-  própria navegação.
+> Mesmo **comportamento**, estrutura muito melhor: **baixo acoplamento** e
+> **aberto à extensão**. Essa é a passagem **análise → design**.
 
 ---
 layout: end
@@ -126,4 +519,4 @@ layout: end
 
 # Obrigado!
 
-Engenharia de Software I · IF Sudeste MG — Campus Manhuaçu
+Engenharia de Software I · MeuPlano.AI
