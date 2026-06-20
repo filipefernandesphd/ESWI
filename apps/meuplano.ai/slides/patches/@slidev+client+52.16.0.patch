@@ -1,0 +1,16 @@
+diff --git a/node_modules/@slidev/client/logic/slides.ts b/node_modules/@slidev/client/logic/slides.ts
+index cb156a1..370f904 100644
+--- a/node_modules/@slidev/client/logic/slides.ts
++++ b/node_modules/@slidev/client/logic/slides.ts
+@@ -21,7 +21,10 @@ export function getSlidePath(
+     route = getSlide(route)!
+   const no = route.meta.slide?.frontmatter.routeAlias ?? route.no
+   const path = exporting ? `export/${no}` : presenter ? `presenter/${no}` : `${no}`
+-  return `${import.meta.env.BASE_URL}${path}`
++  // PATCH (ESWI): retorna caminho route-relativo. O router já é criado com o base
++  // (createWebHashHistory(BASE_URL)); incluir BASE_URL aqui duplicava o caminho em
++  // deploys de subcaminho (ex.: #/ESWI/meuplano-slides/2). Ver patches/.
++  return `/${path}`
+ }
+ 
+ export function useIsSlideActive() {
