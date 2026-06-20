@@ -1,0 +1,100 @@
+{
+  "hash": "52d17028",
+  "configHash": "b4fe25ad",
+  "lockfileHash": "0c0e2b63",
+  "browserHash": "52658d39",
+  "optimized": {
+    "@fix-webm-duration/fix": {
+      "src": "../../node_modules/@fix-webm-duration/fix/src/index.js",
+      "file": "@fix-webm-duration_fix.js",
+      "fileHash": "a1918e04",
+      "needsInterop": true
+    },
+    "@shikijs/engine-javascript": {
+      "src": "../../node_modules/@shikijs/engine-javascript/dist/index.mjs",
+      "file": "@shikijs_engine-javascript.js",
+      "fileHash": "270d201d",
+      "needsInterop": false
+    },
+    "@slidev/cli > @slidev/client > @typescript/ata": {
+      "src": "../../node_modules/@typescript/ata/dist/index.js",
+      "file": "@slidev_cli_n_@slidev_client_n_@typescript_ata.js",
+      "fileHash": "dcbbdc38",
+      "needsInterop": false
+    },
+    "@slidev/cli > @slidev/client > ansis": {
+      "src": "../../node_modules/ansis/index.mjs",
+      "file": "@slidev_cli_n_@slidev_client_n_ansis.js",
+      "fileHash": "207c6696",
+      "needsInterop": false
+    },
+    "@slidev/cli > @slidev/client > file-saver": {
+      "src": "../../node_modules/file-saver/dist/FileSaver.min.js",
+      "file": "@slidev_cli_n_@slidev_client_n_file-saver.js",
+      "fileHash": "2bf5920d",
+      "needsInterop": true
+    },
+    "@slidev/cli > @slidev/client > lz-string": {
+      "src": "../../node_modules/lz-string/libs/lz-string.js",
+      "file": "@slidev_cli_n_@slidev_client_n_lz-string.js",
+      "fileHash": "c5afbfbe",
+      "needsInterop": true
+    },
+    "@slidev/cli > @slidev/client > pptxgenjs": {
+      "src": "../../node_modules/pptxgenjs/dist/pptxgen.es.js",
+      "file": "@slidev_cli_n_@slidev_client_n_pptxgenjs.js",
+      "fileHash": "f3a2699b",
+      "needsInterop": false
+    },
+    "@slidev/cli > @slidev/client > recordrtc": {
+      "src": "../../node_modules/recordrtc/RecordRTC.js",
+      "file": "@slidev_cli_n_@slidev_client_n_recordrtc.js",
+      "fileHash": "878e6c25",
+      "needsInterop": true
+    },
+    "@slidev/cli > @slidev/client > typescript": {
+      "src": "../../node_modules/typescript/lib/typescript.js",
+      "file": "@slidev_cli_n_@slidev_client_n_typescript.js",
+      "fileHash": "9669a5c1",
+      "needsInterop": true
+    },
+    "@slidev/cli > @slidev/client > yaml": {
+      "src": "../../node_modules/yaml/browser/index.js",
+      "file": "@slidev_cli_n_@slidev_client_n_yaml.js",
+      "fileHash": "6a066f13",
+      "needsInterop": false
+    },
+    "ansis": {
+      "src": "../../node_modules/ansis/index.mjs",
+      "file": "ansis.js",
+      "fileHash": "f9cb74c9",
+      "needsInterop": false
+    },
+    "file-saver": {
+      "src": "../../node_modules/file-saver/dist/FileSaver.min.js",
+      "file": "file-saver.js",
+      "fileHash": "6e877756",
+      "needsInterop": true
+    },
+    "recordrtc": {
+      "src": "../../node_modules/recordrtc/RecordRTC.js",
+      "file": "recordrtc.js",
+      "fileHash": "44e6aa5e",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "browser-external_node_fs-BU9QqLqV": {
+      "file": "browser-external_node_fs-BU9QqLqV.js",
+      "isDynamicEntry": true
+    },
+    "browser-external_node_https-D1v6O_1r": {
+      "file": "browser-external_node_https-D1v6O_1r.js",
+      "isDynamicEntry": true
+    },
+    "chunk-Cf1989ZW": {
+      "file": "chunk-Cf1989ZW.js",
+      "isDynamicEntry": false
+    }
+  }
+}
