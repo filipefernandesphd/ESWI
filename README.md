@@ -37,5 +37,15 @@ A partir dela você acessa:
 - **meuplano.ai › código-fonte** — gerador de planos de aula com IA (Ollama)
 
 O site é publicado automaticamente a cada push na branch `main` pela GitHub
-Action `.github/workflows/pages.yml`. Para ativar uma única vez:
-**Settings → Pages → Build and deployment → Source: GitHub Actions**.
+Action `.github/workflows/pages.yml`.
+
+> ⚠️ **Passo manual obrigatório (uma única vez):**
+> **Settings → Pages → Build and deployment → Source: _GitHub Actions_.**
+> Se ficar como _"Deploy from a branch"_, o Pages serve os arquivos crus
+> (a página abre em `/<repo>/site/` em vez da raiz, os marcadores `__…__` não são
+> substituídos e os slides dão 404, pois não são buildados).
+
+Os dados da disciplina e do repositório ficam centralizados no arquivo
+[`.env`](.env) na raiz (commitável, sem segredos). A Action lê esse arquivo e
+substitui os marcadores `__REPO_SLUG__`, `__NOME_DISCIPLINA__`, etc. no
+`site/index.html` ao publicar — edite o `.env` para adaptar a outra turma.
