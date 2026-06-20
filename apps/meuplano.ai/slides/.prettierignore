@@ -1,0 +1,3 @@
+# O Prettier corrompe o frontmatter por slide do Slidev (--- layout: x ---).
+# Não formate o deck.
+slides.md

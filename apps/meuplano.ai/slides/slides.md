@@ -4,6 +4,8 @@ title: Engenharia de Software I — MeuPlano.AI
 info: |
   MeuPlano.AI — da análise ao design orientado a objetos.
   INF03082 · Engenharia de Software I · IF Sudeste MG.
+# Hash routing: navegação por #/2 — evita 404 e duplicação de base no GitHub Pages.
+routerMode: hash
 transition: slide-left
 mdc: true
 layout: cover
@@ -15,8 +17,8 @@ O layout "cover" monta tudo a partir do .env (composable useDisciplina).
 -->
 
 ---
-
-## layout: default
+layout: default
+---
 
 # O que é o MeuPlano.AI?
 
@@ -30,10 +32,8 @@ Um aplicativo que ajuda o **professor a montar planos de aula** com o apoio de I
 > análise para o design orientado a objetos.**
 
 ---
-
 layout: image-right
 image: ./dor_professor.png
-
 ---
 
 # A dor
@@ -50,16 +50,16 @@ image: ./dor_professor.png
 — Prof. Raimundo Nonato
 
 ---
-
-## layout: module
+layout: module
+---
 
 # UC01 — Gerar Plano de Aula
 
 O caso de uso que vamos implementar
 
 ---
-
-## layout: default
+layout: default
+---
 
 # UC01 — Ator e condições
 
@@ -77,8 +77,8 @@ O caso de uso que vamos implementar
 - O professor **exporta** o plano em PDF.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # UC01 — Fluxo principal
 
@@ -91,8 +91,8 @@ O caso de uso que vamos implementar
 7. O sistema exibe o plano em **formato de relatório** — e o caso de uso termina.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # UC01 — Fluxos alternativos
 
@@ -108,8 +108,8 @@ O caso de uso que vamos implementar
 > O laço **5.2** (melhorar com novas instruções) é o coração da interação.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Diagrama de sequência — fluxo principal
 
@@ -138,26 +138,26 @@ sequenceDiagram
 ```
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Do texto às classes
 
 Quais **substantivos** do domínio viram classe?
 
-| Substantivo                 | Vira…                                            |
-| --------------------------- | ------------------------------------------------ |
-| **Plano de aula**           | ✅ classe `PlanoDeAula` (entidade)               |
-| **Serviço de IA**           | ✅ classe `ServicoIA` (gera/melhora/finaliza)    |
-| Professor                   | 👤 ator (fora do recorte de código por enquanto) |
-| Tema, nível, objetivos…     | 🔤 **atributos** de `PlanoDeAula`                |
-| Formulário, tela, relatório | 🖥️ interface com o usuário (UI)                  |
+| Substantivo | Vira… |
+| --- | --- |
+| **Plano de aula** | ✅ classe `PlanoDeAula` (entidade) |
+| **Serviço de IA** | ✅ classe `ServicoIA` (gera/melhora/finaliza) |
+| Professor | 👤 ator (fora do recorte de código por enquanto) |
+| Tema, nível, objetivos… | 🔤 **atributos** de `PlanoDeAula` |
+| Formulário, tela, relatório | 🖥️ interface com o usuário (UI) |
 
 > Na **análise** ficamos com **duas classes** e a aplicação. Simples de propósito.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Diagrama de classes — Análise
 
@@ -190,16 +190,16 @@ classDiagram
 Sem interface, sem herança, sem polimorfismo. **Só o domínio funcionando.**
 
 ---
-
-## layout: module
+layout: module
+---
 
 # Fase 1 — Análise
 
 Do domínio ao código
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 1 — A entidade `PlanoDeAula`
 
@@ -224,8 +224,8 @@ public class PlanoDeAula {
 > Campos **públicos** de propósito: clareza sobre design nesta fase.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 2 — A IA simulada `ServicoIA`
 
@@ -247,8 +247,8 @@ public class ServicoIA {
 > Sem rede, sem Ollama: o foco é o **fluxo do domínio**, não o modelo real.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 3 — O fluxo no terminal `MeuPlanoApp`
 
@@ -270,8 +270,8 @@ public void executarFluxo() {
 ```
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Rodando no terminal
 
@@ -297,16 +297,16 @@ Deseja enviar instruções para melhorar? (s/n)
 ✅ Funciona — **sem** interface, herança ou polimorfismo.
 
 ---
-
-## layout: module
+layout: module
+---
 
 # Fase 2 — Design
 
 Refatorando para OO
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Por que refatorar?
 
@@ -322,8 +322,8 @@ O código de análise funciona, mas…
 > mora a lição de OO.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Diagrama de classes — Design
 
@@ -382,8 +382,8 @@ classDiagram
 ```
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 1 — Encapsular a entidade
 
@@ -411,8 +411,8 @@ public class PlanoDeAula {
 > de onde a ferramenta `javadoc` gera a documentação do código em HTML.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 2 — Interface + classe abstrata
 
@@ -434,8 +434,8 @@ public abstract class ServicoIABase implements ServicoIA {
 > O passo que **varia** entre provedores é só `chamarModelo`.
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 2 — Polimorfismo: várias IAs
 
@@ -461,8 +461,8 @@ ServicoIA ia = new ServicoIASimulado();   // ou new ServicoIAOpenRouter();
 ```
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Passo 3 — Separar responsabilidades
 
@@ -483,26 +483,26 @@ public class GerarPlanoController {     // ORQUESTRA o UC01
 - o controller **não sabe** qual IA, repositório ou exportador é usado
 
 ---
-
-## layout: default
+layout: default
+---
 
 # Síntese da evolução
 
-| O que **era** (análise)           | O que **virou** (design)                              |
-| --------------------------------- | ----------------------------------------------------- |
-| Procedural, tudo no `main`        | Responsabilidades **separadas**                       |
-| `PlanoDeAula` com campos públicos | Entidade **encapsulada**                              |
-| `ServicoIA` única e fixa          | **Interface** + **classe abstrata** (Template Method) |
-| Uma IA possível                   | Várias IAs por **polimorfismo**                       |
-| I/O espalhada na regra            | `ConsoleUI` isola a interface                         |
-| Sem persistir/exportar            | `PlanoRepository` e `ExportadorPlano` (interfaces)    |
+| O que **era** (análise) | O que **virou** (design) |
+| --- | --- |
+| Procedural, tudo no `main` | Responsabilidades **separadas** |
+| `PlanoDeAula` com campos públicos | Entidade **encapsulada** |
+| `ServicoIA` única e fixa | **Interface** + **classe abstrata** (Template Method) |
+| Uma IA possível | Várias IAs por **polimorfismo** |
+| I/O espalhada na regra | `ConsoleUI` isola a interface |
+| Sem persistir/exportar | `PlanoRepository` e `ExportadorPlano` (interfaces) |
 
 > Mesmo **comportamento**, estrutura muito melhor: **baixo acoplamento** e
 > **aberto à extensão**. Essa é a passagem **análise → design**.
 
 ---
-
-## layout: end
+layout: end
+---
 
 # Obrigado!
 
