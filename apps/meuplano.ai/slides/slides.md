@@ -31,7 +31,7 @@ Um aplicativo que ajuda o **professor a montar planos de aula** com o apoio de I
 
 ---
 layout: image-right
-image: ./demo.svg
+image: ./dor_professor.png
 ---
 
 # A dor
