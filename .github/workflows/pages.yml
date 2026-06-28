@@ -1,4 +1,4 @@
-# Publica o hub (site/index.html) + os slides do MeuPlano.AI no GitHub Pages.
+# Publica o hub (site/index.html) + slides Slidev no GitHub Pages.
 #
 # Pré-requisito: Settings -> Pages -> Source: "GitHub Actions"
 
@@ -68,6 +68,21 @@ jobs:
             cp -r dist/* "$GITHUB_WORKSPACE/_site/meuplano-slides/"
           else
             echo "Slides ainda não existem em apps/meuplano.ai/slides — pulando."
+          fi
+
+      - name: Buildar slides de Padrões de Projeto (se existirem)
+        run: |
+          if [ -f apps/padroesdeprojeto/slides/package.json ]; then
+            echo "Projeto Slidev encontrado — buildando."
+            cd apps/padroesdeprojeto/slides
+            npm install --no-audit --no-fund
+            npx slidev build \
+              --base "/${{ github.event.repository.name }}/padroesdeprojeto-slides/" \
+              --out dist
+            mkdir -p "$GITHUB_WORKSPACE/_site/padroesdeprojeto-slides"
+            cp -r dist/* "$GITHUB_WORKSPACE/_site/padroesdeprojeto-slides/"
+          else
+            echo "Slides ainda não existem em apps/padroesdeprojeto/slides — pulando."
           fi
 
       - name: Upload do artefato

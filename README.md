@@ -9,6 +9,8 @@ Repositório de apoio à disciplina de **INF03082 - ENGENHARIA DE SOFTWARE I** d
 |   |-- digitalbank: projeto do banco digital implementado em Java
 |   |-- meuplano.ai: projeto que constrói planos de aula com IA
 |   |   |-- slides: apresentação Slidev (buildada no Pages)
+|   |-- padroesdeprojeto: exemplos Java de padrões GoF
+|   |   |-- slides: apresentação Slidev sobre Factory Method, Composite e Strategy
 |
 |-- site
 |   |-- index.html: hub do GitHub Pages (página inicial)
@@ -35,6 +37,9 @@ A partir dela você acessa:
 - **digitalbank** — código-fonte do banco digital (Java, terminal)
 - **meuplano.ai › slides** — slides da aula (análise → projeto → código)
 - **meuplano.ai › código-fonte** — gerador de planos de aula com IA (Ollama)
+- **padroesdeprojeto › slides** — slides sobre padrões GoF
+- **padroesdeprojeto › código-fonte** — exemplos Java de Factory Method,
+  Composite e Strategy
 
 O site é publicado automaticamente a cada push na branch `main` pela GitHub
 Action `.github/workflows/pages.yml`.
