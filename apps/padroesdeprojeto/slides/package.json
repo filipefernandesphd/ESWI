@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",
-    "export": "slidev export"
+    "export": "slidev export",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@slidev/cli": "52.16.0",
-    "@slidev/theme-default": "0.25.0",
+    "slidev-theme-mint": "0.1.0",
     "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "patch-package": "^8.0.1"
   }
 }

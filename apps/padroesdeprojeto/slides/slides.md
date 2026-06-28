@@ -1,4 +1,5 @@
 ---
+theme: mint
 title: Padrões de Projeto GoF
 info: |
   Factory Method, Composite e Strategy.
@@ -6,6 +7,7 @@ info: |
 routerMode: hash
 transition: slide-left
 mdc: true
+layout: cover
 ---
 
 # Padrões de Projeto GoF
@@ -81,6 +83,8 @@ Em todas as aulas, a pergunta principal é:
 
 > Que parte do código tende a mudar e como isolar essa variação?
 
+---
+layout: module
 ---
 
 # Aula 1
@@ -313,6 +317,8 @@ Objetivo:
 
 Pergunta final: que arquivos precisaram mudar?
 
+---
+layout: module
 ---
 
 # Aula 2
@@ -560,6 +566,8 @@ Pergunta final:
 
 > Em qual interface esse novo comportamento deve aparecer?
 
+---
+layout: module
 ---
 
 # Aula 3

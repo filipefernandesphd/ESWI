@@ -1,21 +1,6 @@
 :root {
-  --slidev-theme-primary: #2a9c41;
-}
-
-.slidev-layout {
-  font-family: Inter, Arial, sans-serif;
-}
-
-.slidev-layout h1,
-.slidev-layout h2 {
-  color: #1f6f34;
-  font-weight: 700;
-}
-
-.slidev-layout table {
-  font-size: 0.85rem;
-}
-
-.slidev-layout code {
-  font-size: 0.9em;
+  --slidev-theme-primary: #2A9C41;
+  --if-green: #2A9C41;
+  --if-dark-green: #2B593F;
+  --if-gray: #505050;
 }
