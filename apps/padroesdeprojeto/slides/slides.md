@@ -61,7 +61,7 @@ Os padrões ajudam a discutir design orientado a objetos com vocabulário comum.
 
 # Padrões estudados neste módulo
 
-Nesta sequência de três aulas, vamos estudar:
+Nós vamos estudar:
 
 - **Factory Method**: criação de notificações.
 - **Composite**: estrutura de arquivos e pastas.
@@ -70,26 +70,10 @@ Nesta sequência de três aulas, vamos estudar:
 Cada padrão será visto com problema, estrutura, código Java e atividade prática.
 
 ---
-
-# Organização das aulas
-
-| Aula | Duração | Foco |
-| --- | --- | --- |
-| 1 | 45 min | Introdução aos GoF + Factory Method |
-| 2 | 45 min | Composite |
-| 3 | 45 min | Strategy + comparação final |
-
-Em todas as aulas, a pergunta principal é:
-
-> Que parte do código tende a mudar e como isolar essa variação?
-
----
 layout: module
 ---
 
-# Aula 1
-
-## Factory Method
+# Factory Method
 
 Padrão criacional para delegar a criação de objetos.
 
@@ -321,9 +305,7 @@ Pergunta final: que arquivos precisaram mudar?
 layout: module
 ---
 
-# Aula 2
-
-## Composite
+# Composite
 
 Padrão estrutural para tratar objetos simples e compostos de forma uniforme.
 
@@ -331,7 +313,7 @@ Padrão estrutural para tratar objetos simples e compostos de forma uniforme.
 
 # Retomada
 
-Na aula anterior, o Factory Method isolou a variação de criação.
+No padrão anterior, o Factory Method isolou a variação de criação.
 
 Agora a variação é estrutural:
 
@@ -570,9 +552,7 @@ Pergunta final:
 layout: module
 ---
 
-# Aula 3
-
-## Strategy
+# Strategy
 
 Padrão comportamental para trocar algoritmos sem alterar o contexto.
 
@@ -826,24 +806,7 @@ forma que o padrão resolve.
 
 ---
 
-# Atividade final integradora
-
-Em grupos, proponham uma pequena evolução para um dos exemplos:
-
-- novo canal de notificação;
-- novo comportamento na árvore de arquivos;
-- nova regra de frete.
-
-Para a evolução escolhida, respondam:
-
-1. quais classes novas seriam criadas;
-2. quais classes antigas seriam alteradas;
-3. qual padrão ajudou a reduzir impacto;
-4. onde o padrão seria exagero.
-
----
-
-# Fechamento
+# Conclusão
 
 Padrões de projeto são ferramentas de raciocínio.
 
