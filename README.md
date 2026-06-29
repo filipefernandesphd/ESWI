@@ -30,7 +30,7 @@ Repositório de apoio à disciplina de **INF03082 - ENGENHARIA DE SOFTWARE I** d
 
 A página inicial do repositório fica publicada em:
 
-**https://<usuario>.github.io/<repositorio>/**
+**https://filipefernandesphd.github.io/ESWI/**
 
 A partir dela você acessa:
 
